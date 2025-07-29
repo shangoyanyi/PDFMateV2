@@ -22,9 +22,15 @@ echo [INFO] Installing dependencies...
 "%PYEXE%" -m pip install -r "%TARGETDIR%\requirements.txt"
 
 
-REM 註冊右鍵選單 (只針對 PDF 檔案)
-reg add "HKCU\Software\Classes\SystemFileAssociations\.pdf\shell\PDF2CSV" /ve /d "將月結表 PDF 轉換為 CSV 檔" /f
-reg add "HKCU\Software\Classes\SystemFileAssociations\.pdf\shell\PDF2CSV\command" /ve /d "\"%PYEXE%\" \"%TARGETDIR%\pdf2csv.py\" \"%%1\"" /f
+REM 註冊右鍵選單(只針對在 PDF 檔案點右鍵)：將月結表 PDF 轉換為 CSV 檔
+reg add "HKCU\Software\Classes\SystemFileAssociations\.pdf\shell\月結表PDF轉換為CSV檔" /ve /d "月結表PDF轉換為CSV檔" /f
+reg add "HKCU\Software\Classes\SystemFileAssociations\.pdf\shell\月結表PDF轉換為CSV檔\command" /ve /d "\"%PYEXE%\" \"%TARGETDIR%\pdf2csv.py\" \"%%1\"" /f
+
+
+REM 註冊右鍵選單(只針對在資料夾空白處點右鍵)：PDF 配對整理
+reg add "HKCU\Software\Classes\Directory\Background\shell\月結表與黏存單PDF配對整理" /ve /d "月結表與黏存單PDF配對整理" /f
+reg add "HKCU\Software\Classes\Directory\Background\shell\月結表與黏存單PDF配對整理\command" /ve /d "\"%PYEXE%\" \"%TARGETDIR%\pdf2folders.py\" \"%%V\"" /f
+
 
 echo.
 echo [OK] PDFMate 安裝完成並已新增右鍵功能！
